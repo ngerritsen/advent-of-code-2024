@@ -44,12 +44,11 @@ function get_total_diff(array $left, array $right): int
 
 function parse(string $data): array
 {
-  $lines = explode("\n", $data);
+  $lines = array_filter(explode("\n", $data));
   $left = [];
   $right = [];
 
   foreach ($lines as $line) {
-    if (empty($line)) continue;
     $parts = explode(" ", $line);
     $left[] = (int)$parts[0];
     $right[] = (int)end($parts);
