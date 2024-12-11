@@ -4,11 +4,12 @@ $data = file_get_contents(__DIR__ . "/input.txt");
 
 function main(string $data)
 {
-  $disk = array_map(fn($c) => (int)$c, str_split($data));
+  $disk = array_map(fn ($c) => (int)$c, str_split($data));
 
   echo get_fragmented_checksum($disk) . PHP_EOL;
   echo get_defragmented_checksum($disk) . PHP_EOL;
 }
+
 function get_defragmented_checksum(array $disk): int
 {
   $cs = 0;
