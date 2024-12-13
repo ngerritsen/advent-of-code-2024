@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . "/../utils/grid.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
 define("DIRS", [
@@ -27,7 +29,7 @@ function get_cost(array $grid, bool $bulk): int
 
     for ($y = 0; $y < $h; $y++) {
         for ($x = 0; $x < $w; $x++) {
-            if (isset($used[str([$x, $y])])) continue;
+            if (isset($used[to_str([$x, $y])])) continue;
             $cost += get_region_cost([$x, $y], $grid, $used, $bulk);
         }
     }
@@ -38,8 +40,8 @@ function get_cost(array $grid, bool $bulk): int
 function get_region_cost(array $start, array $grid, array &$used, bool $bulk): int
 {
     $stack = [$start];
-    $plant = get($start, $grid);
-    $used[str($start)] = $plant;
+    $plant = get_coord($grid, $start);
+    $used[to_str($start)] = $plant;
     $area = 0;
     $connections = 0;
     $fences = [];
@@ -49,9 +51,9 @@ function get_region_cost(array $start, array $grid, array &$used, bool $bulk): i
         $area++;
 
         foreach (DIRS as $dir_name => $dir) {
-            $next = add_dir($curr, $dir);
+            $next = add_coord($curr, $dir);
 
-            if (!is_in_bounds($next, $grid) || get($next, $grid) !== $plant) {
+            if (get_coord($grid, $next) !== $plant) {
                 if (!$bulk) continue;
 
                 $is_horz = array_search($dir_name, VERT_DIRS) === false;
@@ -68,10 +70,10 @@ function get_region_cost(array $start, array $grid, array &$used, bool $bulk): i
 
             $connections++;
 
-            if (isset($used[str($next)])) continue;
+            if (isset($used[to_str($next)])) continue;
 
             $stack[] = $next;
-            $used[str($next)] = $plant;
+            $used[to_str($next)] = $plant;
         }
     }
 
@@ -98,41 +100,6 @@ function get_region_cost(array $start, array $grid, array &$used, bool $bulk): i
     }
 
     return $area * $sides;
-}
-
-function parse_grid(string $data): array
-{
-    return array_map(
-        fn($ln) => str_split($ln),
-        explode("\n", trim($data))
-    );
-}
-
-function str(array $coord): string
-{
-    return implode(",", $coord);
-}
-
-function add_dir(array $coord, array $dir): array
-{
-    return [$coord[0] + $dir[0], $coord[1] + $dir[1]];
-}
-
-function is_in_bounds(array $coord, array $grid): bool
-{
-    list($w, $h) = get_size($grid);
-    list($x, $y) = $coord;
-    return $x >= 0 && $y >= 0 && $x < $w && $y < $h;
-}
-
-function get(array $coord, array $grid)
-{
-    return $grid[$coord[1]][$coord[0]];
-}
-
-function get_size(array $grid): array
-{
-    return [count($grid[0]), count($grid)];
 }
 
 main($data);
