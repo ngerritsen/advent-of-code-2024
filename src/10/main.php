@@ -51,7 +51,7 @@ function get_score(int $x, int $y, array $grid): array
             $nh = $grid[$ny][$nx];
             if ($nh !== $ch + 1) continue;
             if ($nh === 9) {
-                $peaks[to_str([$nx, $ny])] = true;
+                $peaks[str_coord([$nx, $ny])] = true;
                 $paths += 1;
             }
             if ($nh < 9) array_push($stack, $next);

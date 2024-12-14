@@ -24,11 +24,11 @@ function get_antinode_count(array $grid, array $nodes, bool $unlimited): int
             list($a, $b) = $pair;
 
             foreach (get_antinodes($a, $b, $grid, $unlimited) as $node) {
-                $antinodes[to_str($node)] = true;
+                $antinodes[str_coord($node)] = true;
             }
 
             foreach (get_antinodes($b, $a, $grid, $unlimited) as $node) {
-                $antinodes[to_str($node)] = true;
+                $antinodes[str_coord($node)] = true;
             }
         }
     }

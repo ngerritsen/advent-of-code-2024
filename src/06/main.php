@@ -31,8 +31,8 @@ function walk(array $grid): int
 {
     $curr = find_guard($grid);
     $dir = [0, -1];
-    $locations = [to_str($curr) => true];
-    $positions = [to_str($curr) . to_str($dir) => true];
+    $locations = [str_coord($curr) => true];
+    $positions = [str_coord($curr) . str_coord($dir) => true];
 
     while (true) {
         $next = add_coord($curr, $dir);
@@ -45,10 +45,10 @@ function walk(array $grid): int
 
         if (empty($char)) return count($locations);
 
-        $locations[to_str($next)] = true;
+        $locations[str_coord($next)] = true;
         $curr = $next;
 
-        $pos = to_str($next) . "|" . to_str($dir);
+        $pos = str_coord($next) . "|" . str_coord($dir);
         if (isset($positions[$pos])) return -1;
         $positions[$pos] = true;
     }

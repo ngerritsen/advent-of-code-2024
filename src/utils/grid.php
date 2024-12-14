@@ -27,7 +27,7 @@ function mul_coord(array $c, int $n): array
     return [$c[0] * $n, $c[1] * $n];
 }
 
-function to_str(array $coord): string
+function str_coord(array $coord): string
 {
     return implode(",", $coord);
 }
@@ -44,8 +44,19 @@ function in_bounds(array $grid, array $coord): bool
     return $x >= 0 && $x < $w && $y >= 0 && $y < $h;
 }
 
+function str_grid(array $grid) {
+    return implode("\n", array_map(fn ($row) => implode("", $row), $grid));
+}
+
 function get_coord(array $grid, array $coord)
 {
     if (!in_bounds($grid, $coord)) return null;
     return $grid[$coord[1]][$coord[0]];
+}
+
+function create_grid(int $width, int $height, string $fill = "."): array
+{
+    $line = str_repeat($fill, $width) . "\n";
+
+    return parse_grid(str_repeat($line, $height));
 }

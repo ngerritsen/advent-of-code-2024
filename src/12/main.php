@@ -29,7 +29,7 @@ function get_cost(array $grid, bool $bulk): int
 
     for ($y = 0; $y < $h; $y++) {
         for ($x = 0; $x < $w; $x++) {
-            if (isset($used[to_str([$x, $y])])) continue;
+            if (isset($used[str_coord([$x, $y])])) continue;
             $cost += get_region_cost([$x, $y], $grid, $used, $bulk);
         }
     }
@@ -41,7 +41,7 @@ function get_region_cost(array $start, array $grid, array &$used, bool $bulk): i
 {
     $stack = [$start];
     $plant = get_coord($grid, $start);
-    $used[to_str($start)] = $plant;
+    $used[str_coord($start)] = $plant;
     $area = 0;
     $connections = 0;
     $fences = [];
@@ -70,10 +70,10 @@ function get_region_cost(array $start, array $grid, array &$used, bool $bulk): i
 
             $connections++;
 
-            if (isset($used[to_str($next)])) continue;
+            if (isset($used[str_coord($next)])) continue;
 
             $stack[] = $next;
-            $used[to_str($next)] = $plant;
+            $used[str_coord($next)] = $plant;
         }
     }
 
