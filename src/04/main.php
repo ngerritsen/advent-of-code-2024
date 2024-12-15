@@ -40,7 +40,7 @@ function find_x_mas(array $grid, array $start): bool
     list($w, $h) = get_size($grid);
     list($x, $y) = $start;
 
-    if ($x === 0 || $x === $w - 1 || $y === 0 || $y === $h - 1 || get_coord($grid, $start) !== "A") return false;
+    if ($x === 0 || $x === $w - 1 || $y === 0 || $y === $h - 1 || get_value($grid, $start) !== "A") return false;
 
     $top = $grid[$y - 1][$x - 1] . $grid[$y - 1][$x + 1];
     $bottom = $grid[$y + 1][$x - 1] . $grid[$y + 1][$x + 1];
@@ -54,7 +54,7 @@ function find_xmas_dir(array $grid, array $start, array $dir): bool
 
     foreach (["X", "M", "A", "S"] as $i => $letter) {
         $next = add_coord($start, mul_coord($dir, $i));
-        if (get_coord($grid, $next) !== $letter) return false;
+        if (get_value($grid, $next) !== $letter) return false;
     }
 
     return true;

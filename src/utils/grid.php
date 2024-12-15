@@ -48,10 +48,16 @@ function str_grid(array $grid) {
     return implode("\n", array_map(fn ($row) => implode("", $row), $grid));
 }
 
-function get_coord(array $grid, array $coord)
+function get_value(array $grid, array $coord)
 {
     if (!in_bounds($grid, $coord)) return null;
     return $grid[$coord[1]][$coord[0]];
+}
+
+function set_value(array &$grid, array $coord, $val)
+{
+    if (!in_bounds($grid, $coord)) return null;
+    return $grid[$coord[1]][$coord[0]] = $val;
 }
 
 function create_grid(int $width, int $height, string $fill = "."): array

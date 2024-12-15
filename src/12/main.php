@@ -40,7 +40,7 @@ function get_cost(array $grid, bool $bulk): int
 function get_region_cost(array $start, array $grid, array &$used, bool $bulk): int
 {
     $stack = [$start];
-    $plant = get_coord($grid, $start);
+    $plant = get_value($grid, $start);
     $used[str_coord($start)] = $plant;
     $area = 0;
     $connections = 0;
@@ -53,7 +53,7 @@ function get_region_cost(array $start, array $grid, array &$used, bool $bulk): i
         foreach (DIRS as $dir_name => $dir) {
             $next = add_coord($curr, $dir);
 
-            if (get_coord($grid, $next) !== $plant) {
+            if (get_value($grid, $next) !== $plant) {
                 if (!$bulk) continue;
 
                 $is_horz = array_search($dir_name, VERT_DIRS) === false;

@@ -17,7 +17,7 @@ function find_loop_count(array $grid)
 
     for ($y = 0; $y < count($grid); $y++) {
         for ($x = 0; $x < count($grid[$y]); $x++) {
-            if (get_coord($grid, [$x, $y]) !== ".") continue;
+            if (get_value($grid, [$x, $y]) !== ".") continue;
             $grid[$y][$x] = "#";
             if (walk($grid) === -1) $count++;
             $grid[$y][$x] = ".";
@@ -36,7 +36,7 @@ function walk(array $grid): int
 
     while (true) {
         $next = add_coord($curr, $dir);
-        $char = get_coord($grid, $next);
+        $char = get_value($grid, $next);
 
         if ($char === "#") {
             $dir = rotate_dir($dir);
