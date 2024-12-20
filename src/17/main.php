@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     list($reg, $prog) = parse_computer($data);
 
-    echo run($reg, $prog) . PHP_EOL;
-    echo get_magic_a($reg, $prog) . PHP_EOL;
+    print_ln(run($reg, $prog));
+    print_ln(get_magic_a($reg, $prog));
 }
 
 function get_magic_a(array $reg, array $prog): int

@@ -1,17 +1,17 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $grid = parse_grid($data);
 
     list($xmas_count, $x_mas_count) = get_xmas_counts($grid);
 
-    echo $xmas_count . PHP_EOL;
-    echo $x_mas_count . PHP_EOL;
+    print_ln($xmas_count);
+    print_ln($x_mas_count);
 }
 
 function get_xmas_counts(array $grid): array

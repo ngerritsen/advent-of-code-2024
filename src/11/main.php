@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $stones = parse_stones($data);
 
-    echo blink($stones, 25) . PHP_EOL;
-    echo blink($stones, 75) . PHP_EOL;
+    print_ln(blink($stones, 25));
+    print_ln(blink($stones, 75));
 }
 
 function blink(array $stones, int $times): int

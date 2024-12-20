@@ -1,5 +1,12 @@
 <?php
 
+function create_grid(int $width, int $height, string $fill = "."): array
+{
+    $line = str_repeat($fill, $width) . "\n";
+
+    return parse_grid(str_repeat($line, $height));
+}
+
 function parse_grid(string $data, bool $numeric = false): array
 {
     return array_map(
@@ -9,37 +16,6 @@ function parse_grid(string $data, bool $numeric = false): array
         ),
         explode("\n", trim($data))
     );
-}
-
-function parse_coord(string $str): array
-{
-    return array_map("intval", explode(",", trim($str)));
-}
-
-function add_coord(array $a, array $b): array
-{
-    return [$a[0] + $b[0], $a[1] + $b[1]];
-}
-
-function sub_coord(array $a, array $b): array
-{
-    return [$a[0] - $b[0], $a[1] - $b[1]];
-}
-
-function mul_coord(array $c, int $n): array
-{
-    if ($n === 1) return $c;
-    return [$c[0] * $n, $c[1] * $n];
-}
-
-function eq_coord(array $a, array $b): bool
-{
-    return $a[0] === $b[0] && $a[1] === $b[1];
-}
-
-function str_coord(array $coord): string
-{
-    return implode(",", $coord);
 }
 
 function get_size(array $grid): array
@@ -54,25 +30,19 @@ function in_bounds(array $grid, array $coord): bool
     return $x >= 0 && $x < $w && $y >= 0 && $y < $h;
 }
 
-function str_grid(array $grid) {
+function str_grid(array $grid): string
+{
     return implode("\n", array_map(fn ($row) => implode("", $row), $grid));
 }
 
-function get_value(array $grid, array $coord)
+function get_value(array $grid, array $coord): int | string | null
 {
     if (!in_bounds($grid, $coord)) return null;
     return $grid[$coord[1]][$coord[0]];
 }
 
-function set_value(array &$grid, array $coord, $val)
+function set_value(array &$grid, array $coord, int | string $val): void
 {
-    if (!in_bounds($grid, $coord)) return null;
-    return $grid[$coord[1]][$coord[0]] = $val;
-}
-
-function create_grid(int $width, int $height, string $fill = "."): array
-{
-    $line = str_repeat($fill, $width) . "\n";
-
-    return parse_grid(str_repeat($line, $height));
+    if (!in_bounds($grid, $coord)) return;
+    $grid[$coord[1]][$coord[0]] = $val;
 }

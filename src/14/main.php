@@ -1,18 +1,18 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
 define("WIDTH", 101);
 define("HEIGHT", 103);
 
-function main(string $data)
+function main(string $data): void
 {
     $robots = parse_robots($data);
 
-    echo wait($robots, 100)[0] . PHP_EOL;
-    echo find_easter_egg($robots) . PHP_EOL;
+    print_ln(wait($robots, 100)[0]);
+    print_ln(find_easter_egg($robots));
 }
 
 function find_easter_egg($robots): int

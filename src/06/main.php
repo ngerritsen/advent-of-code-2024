@@ -1,14 +1,14 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $grid = parse_grid($data);
-    echo walk($grid) . PHP_EOL;
-    echo find_loop_count($grid) . PHP_EOL;
+    print_ln(walk($grid));
+    print_ln(find_loop_count($grid));
 }
 
 function find_loop_count(array $grid)

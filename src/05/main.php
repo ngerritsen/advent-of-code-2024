@@ -1,14 +1,16 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     list($rules, $updates) = parse_pages($data);
     list($valid_total, $fixed_total) = get_middle_number_totals($updates, $rules);
 
-    echo $valid_total . PHP_EOL;
-    echo $fixed_total . PHP_EOL;
+    print_ln($valid_total);
+    print_ln($fixed_total);
 }
 
 function get_middle_number_totals(array $updates, array $rules): array
@@ -24,18 +26,6 @@ function get_middle_number_totals(array $updates, array $rules): array
     }
 
     return [$valid_total, $fixed_total];
-}
-
-
-function get_rule_map(array $rules): array
-{
-    $map = [];
-
-    foreach ($rules as $rule) {
-        $map[$rule[0]] = $rule[1];
-    }
-
-    return $map;
 }
 
 function sort_update(array $update, array $rules): array

@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $machines = parse_machines($data);
 
-    echo get_total_cost($machines) . PHP_EOL;
-    echo get_total_cost($machines, 10 ** 13) . PHP_EOL;
+    print_ln(get_total_cost($machines));
+    print_ln(get_total_cost($machines, 10 ** 13));
 }
 
 function get_total_cost(array $machines, int $add = 0)

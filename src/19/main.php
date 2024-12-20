@@ -1,10 +1,10 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     list($patterns, $designs) = parse_input($data);
     $max_pattern_len = max(array_map("strlen", array_keys($patterns)));
@@ -12,8 +12,8 @@ function main(string $data)
 
     $arrangements = array_map(fn($d) => get_arrangements($d, $patterns, $max_pattern_len, $cache), $designs);
 
-    echo count(array_filter($arrangements)) . PHP_EOL;
-    echo array_sum($arrangements) . PHP_EOL;
+    print_ln(count(array_filter($arrangements)));
+    print_ln(array_sum($arrangements));
 }
 
 function get_arrangements(string $design, array $patterns, int $max_pattern_len, array &$cache): int

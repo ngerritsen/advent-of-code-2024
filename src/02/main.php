@@ -1,16 +1,18 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $reports = parse_reports($data);
 
-    echo get_safe_count($reports, false) . PHP_EOL;
-    echo get_safe_count($reports, true) . PHP_EOL;
+    print_ln(get_safe_count($reports, false));
+    print_ln(get_safe_count($reports, true));
 }
 
-function get_safe_count(array $reports, bool $tolerate_bad)
+function get_safe_count(array $reports, bool $tolerate_bad): int
 {
     $count = 0;
 

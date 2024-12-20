@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
@@ -11,12 +11,12 @@ define("DIRS", [
     "^" => [0, -1]
 ]);
 
-function main(string $data)
+function main(string $data): void
 {
     list($grid, $moves) = parse_input($data);
 
-    echo execute_moves($grid, $moves) . PHP_EOL;
-    echo execute_moves(scale_up_grid($grid), $moves) . PHP_EOL;
+    print_ln(execute_moves($grid, $moves));
+    print_ln(execute_moves(scale_up_grid($grid), $moves));
 }
 
 function execute_moves(array $grid, array $moves): int

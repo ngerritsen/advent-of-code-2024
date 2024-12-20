@@ -1,15 +1,15 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $grid = parse_grid($data);
     list($min, $tiles) = find_cheapest_path($grid);
-    echo $min . PHP_EOL;
-    echo $tiles . PHP_EOL;
+    print_ln($min);
+    print_ln($tiles);
 }
 
 function find_cheapest_path(array $grid): array

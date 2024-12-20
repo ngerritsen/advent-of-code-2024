@@ -1,18 +1,18 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
 define("MIN_BYTES", 1024);
 
-function main(string $data)
+function main(string $data): void
 {
     $bytes = parse_coords($data);
     $grid = create_grid(71, 71);
 
-    echo find_shortest_path(drop_bytes($grid, $bytes, MIN_BYTES)) . PHP_EOL;
-    echo find_final_byte($grid, $bytes) . PHP_EOL;
+    print_ln(find_shortest_path(drop_bytes($grid, $bytes, MIN_BYTES)));
+    print_ln(find_final_byte($grid, $bytes));
 }
 
 function find_final_byte(array $grid, array $bytes): string

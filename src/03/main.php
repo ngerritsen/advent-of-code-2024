@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $instructions = parse_instructions($data);
 
-    echo calculate_total($instructions, false) . PHP_EOL;
-    echo calculate_total($instructions, true) . PHP_EOL;
+    print_ln(calculate_total($instructions, false));
+    print_ln(calculate_total($instructions, true));
 }
 
 function calculate_total(array $instructions, bool $use_skip): int

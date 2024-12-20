@@ -1,16 +1,16 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $grid = parse_grid($data, true);
 
     list($distinct, $peaks) = get_hike_stats($grid);
-    echo $peaks . PHP_EOL;
-    echo $distinct . PHP_EOL;
+    print_ln($peaks);
+    print_ln($distinct);
 }
 
 function get_hike_stats(array $grid): array

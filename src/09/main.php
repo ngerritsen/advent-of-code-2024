@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $disk = array_map(fn($c) => (int)$c, str_split($data));
 
-    echo get_fragmented_checksum($disk) . PHP_EOL;
-    echo get_defragmented_checksum($disk) . PHP_EOL;
+    print_ln(get_fragmented_checksum($disk));
+    print_ln(get_defragmented_checksum($disk));
 }
 
 function get_defragmented_checksum(array $disk): int

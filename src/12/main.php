@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
@@ -13,12 +13,12 @@ define("DIRS", [
 
 define("VERT_DIRS", ["U", "D"]);
 
-function main(string $data)
+function main(string $data): void
 {
     $grid = parse_grid($data);
 
-    echo get_cost($grid, false) . PHP_EOL;
-    echo get_cost($grid, true) . PHP_EOL;
+    print_ln(get_cost($grid, false));
+    print_ln(get_cost($grid, true));
 }
 
 function get_cost(array $grid, bool $bulk): int

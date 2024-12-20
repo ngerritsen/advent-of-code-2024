@@ -1,16 +1,16 @@
 <?php
 
-require __DIR__ . "/../utils/grid.php";
+require __DIR__ . "/../utils/all.php";
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $grid = parse_grid($data);
     $nodes = get_nodes($grid);
 
-    echo get_antinode_count($grid, $nodes, false) . PHP_EOL;
-    echo get_antinode_count($grid, $nodes, true) . PHP_EOL;
+    print_ln(get_antinode_count($grid, $nodes, false));
+    print_ln(get_antinode_count($grid, $nodes, true));
 }
 
 function get_antinode_count(array $grid, array $nodes, bool $unlimited): int

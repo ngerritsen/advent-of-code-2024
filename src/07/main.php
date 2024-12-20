@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     $equations = parse_equations($data);
 
-    echo get_valid_answers($equations, false) . PHP_EOL;
-    echo get_valid_answers($equations, true) . PHP_EOL;
+    print_ln(get_valid_answers($equations, false));
+    print_ln(get_valid_answers($equations, true));
 }
 
 function get_valid_answers(array $equations, bool $with_concat): int

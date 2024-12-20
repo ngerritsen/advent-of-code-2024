@@ -1,13 +1,15 @@
 <?php
 
+require __DIR__ . "/../utils/all.php";
+
 $data = file_get_contents(__DIR__ . "/input.txt");
 
-function main(string $data)
+function main(string $data): void
 {
     [$left, $right] = parse($data);
 
-    echo get_total_diff($left, $right) . PHP_EOL;
-    echo get_total_similarity_score($left, $right) . PHP_EOL;
+    print_ln(get_total_diff($left, $right));
+    print_ln(get_total_similarity_score($left, $right));
 }
 
 function get_total_similarity_score(array $left, array $right): int
