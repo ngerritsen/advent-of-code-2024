@@ -1,8 +1,9 @@
 <?php
 
-function print_ln(...$msgs): void
+function println(...$msgs): void
 {
-    foreach ($msgs as $msg) {
+    foreach ($msgs as $i => $msg) {
+        if ($i > 0) echo " ";
         print_r($msg);
     }
     echo PHP_EOL;

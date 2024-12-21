@@ -9,8 +9,8 @@ function main(string $data): void
     $grid = parse_grid($data);
     $nodes = get_nodes($grid);
 
-    print_ln(get_antinode_count($grid, $nodes, false));
-    print_ln(get_antinode_count($grid, $nodes, true));
+    println(get_antinode_count($grid, $nodes, false));
+    println(get_antinode_count($grid, $nodes, true));
 }
 
 function get_antinode_count(array $grid, array $nodes, bool $unlimited): int

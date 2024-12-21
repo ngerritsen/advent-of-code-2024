@@ -15,8 +15,8 @@ function main(string $data): void
 {
     list($grid, $moves) = parse_input($data);
 
-    print_ln(execute_moves($grid, $moves));
-    print_ln(execute_moves(scale_up_grid($grid), $moves));
+    println(execute_moves($grid, $moves));
+    println(execute_moves(scale_up_grid($grid), $moves));
 }
 
 function execute_moves(array $grid, array $moves): int

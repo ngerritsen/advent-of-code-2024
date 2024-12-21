@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $machines = parse_machines($data);
 
-    print_ln(get_total_cost($machines));
-    print_ln(get_total_cost($machines, 10 ** 13));
+    println(get_total_cost($machines));
+    println(get_total_cost($machines, 10 ** 13));
 }
 
 function get_total_cost(array $machines, int $add = 0)

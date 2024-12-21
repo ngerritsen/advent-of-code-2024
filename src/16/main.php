@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $grid = parse_grid($data);
     list($min, $tiles) = find_cheapest_path($grid);
-    print_ln($min);
-    print_ln($tiles);
+    println($min);
+    println($tiles);
 }
 
 function find_cheapest_path(array $grid): array

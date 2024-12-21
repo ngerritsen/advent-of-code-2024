@@ -12,8 +12,8 @@ function main(string $data): void
 
     $arrangements = array_map(fn($d) => get_arrangements($d, $patterns, $max_pattern_len, $cache), $designs);
 
-    print_ln(count(array_filter($arrangements)));
-    print_ln(array_sum($arrangements));
+    println(count(array_filter($arrangements)));
+    println(array_sum($arrangements));
 }
 
 function get_arrangements(string $design, array $patterns, int $max_pattern_len, array &$cache): int

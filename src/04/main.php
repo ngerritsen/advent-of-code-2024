@@ -10,8 +10,8 @@ function main(string $data): void
 
     list($xmas_count, $x_mas_count) = get_xmas_counts($grid);
 
-    print_ln($xmas_count);
-    print_ln($x_mas_count);
+    println($xmas_count);
+    println($x_mas_count);
 }
 
 function get_xmas_counts(array $grid): array

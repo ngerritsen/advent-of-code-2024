@@ -8,8 +8,8 @@ function main(string $data): void
 {
     [$left, $right] = parse($data);
 
-    print_ln(get_total_diff($left, $right));
-    print_ln(get_total_similarity_score($left, $right));
+    println(get_total_diff($left, $right));
+    println(get_total_similarity_score($left, $right));
 }
 
 function get_total_similarity_score(array $left, array $right): int

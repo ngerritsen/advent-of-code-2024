@@ -11,8 +11,8 @@ function main(string $data): void
 {
     $robots = parse_robots($data);
 
-    print_ln(wait($robots, 100)[0]);
-    print_ln(find_easter_egg($robots));
+    println(wait($robots, 100)[0]);
+    println(find_easter_egg($robots));
 }
 
 function find_easter_egg($robots): int

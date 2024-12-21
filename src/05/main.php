@@ -9,8 +9,8 @@ function main(string $data): void
     list($rules, $updates) = parse_pages($data);
     list($valid_total, $fixed_total) = get_middle_number_totals($updates, $rules);
 
-    print_ln($valid_total);
-    print_ln($fixed_total);
+    println($valid_total);
+    println($fixed_total);
 }
 
 function get_middle_number_totals(array $updates, array $rules): array

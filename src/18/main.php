@@ -11,8 +11,8 @@ function main(string $data): void
     $bytes = parse_coords($data);
     $grid = create_grid(71, 71);
 
-    print_ln(find_shortest_path(drop_bytes($grid, $bytes, MIN_BYTES)));
-    print_ln(find_final_byte($grid, $bytes));
+    println(find_shortest_path(drop_bytes($grid, $bytes, MIN_BYTES)));
+    println(find_final_byte($grid, $bytes));
 }
 
 function find_final_byte(array $grid, array $bytes): string

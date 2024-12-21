@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $equations = parse_equations($data);
 
-    print_ln(get_valid_answers($equations, false));
-    print_ln(get_valid_answers($equations, true));
+    println(get_valid_answers($equations, false));
+    println(get_valid_answers($equations, true));
 }
 
 function get_valid_answers(array $equations, bool $with_concat): int

@@ -17,8 +17,8 @@ function main(string $data): void
 {
     $grid = parse_grid($data);
 
-    print_ln(get_cost($grid, false));
-    print_ln(get_cost($grid, true));
+    println(get_cost($grid, false));
+    println(get_cost($grid, true));
 }
 
 function get_cost(array $grid, bool $bulk): int

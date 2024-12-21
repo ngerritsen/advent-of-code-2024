@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $instructions = parse_instructions($data);
 
-    print_ln(calculate_total($instructions, false));
-    print_ln(calculate_total($instructions, true));
+    println(calculate_total($instructions, false));
+    println(calculate_total($instructions, true));
 }
 
 function calculate_total(array $instructions, bool $use_skip): int

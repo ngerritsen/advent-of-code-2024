@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $disk = array_map(fn($c) => (int)$c, str_split($data));
 
-    print_ln(get_fragmented_checksum($disk));
-    print_ln(get_defragmented_checksum($disk));
+    println(get_fragmented_checksum($disk));
+    println(get_defragmented_checksum($disk));
 }
 
 function get_defragmented_checksum(array $disk): int

@@ -9,8 +9,8 @@ function main(string $data): void
     $grid = parse_grid($data);
     $track = get_track($grid);
 
-    print_ln(get_total_cheats($track, 100, 2));
-    print_ln(get_total_cheats($track, 100, 20));
+    println(get_total_cheats($track, 100, 2));
+    println(get_total_cheats($track, 100, 20));
 }
 
 function get_total_cheats(array $track, int $min_save, int $max_skip): int

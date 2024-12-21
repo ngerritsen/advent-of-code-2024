@@ -9,8 +9,8 @@ function main(string $data): void
     $grid = parse_grid($data, true);
 
     list($distinct, $peaks) = get_hike_stats($grid);
-    print_ln($peaks);
-    print_ln($distinct);
+    println($peaks);
+    println($distinct);
 }
 
 function get_hike_stats(array $grid): array

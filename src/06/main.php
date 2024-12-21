@@ -7,8 +7,8 @@ $data = file_get_contents(__DIR__ . "/input.txt");
 function main(string $data): void
 {
     $grid = parse_grid($data);
-    print_ln(walk($grid));
-    print_ln(find_loop_count($grid));
+    println(walk($grid));
+    println(find_loop_count($grid));
 }
 
 function find_loop_count(array $grid)

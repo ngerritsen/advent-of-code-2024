@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $reports = parse_reports($data);
 
-    print_ln(get_safe_count($reports, false));
-    print_ln(get_safe_count($reports, true));
+    println(get_safe_count($reports, false));
+    println(get_safe_count($reports, true));
 }
 
 function get_safe_count(array $reports, bool $tolerate_bad): int

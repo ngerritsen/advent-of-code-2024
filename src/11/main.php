@@ -8,8 +8,8 @@ function main(string $data): void
 {
     $stones = parse_stones($data);
 
-    print_ln(blink($stones, 25));
-    print_ln(blink($stones, 75));
+    println(blink($stones, 25));
+    println(blink($stones, 75));
 }
 
 function blink(array $stones, int $times): int

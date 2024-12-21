@@ -8,8 +8,8 @@ function main(string $data): void
 {
     list($reg, $prog) = parse_computer($data);
 
-    print_ln(run($reg, $prog));
-    print_ln(get_magic_a($reg, $prog));
+    println(run($reg, $prog));
+    println(get_magic_a($reg, $prog));
 }
 
 function get_magic_a(array $reg, array $prog): int
