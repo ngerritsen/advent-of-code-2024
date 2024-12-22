@@ -4,65 +4,70 @@ require __DIR__ . "/../utils/all.php";
 
 define("NUMPAD", "789\n456\n123\n.0A");
 define("DIRPAD", ".^A\n<v>");
-define("DIRS", [
-    ">" => [1, 0],
-    "v" => [0, 1],
-    "<" => [-1, 0],
-    "^" => [0, -1]
-]);
+define("DIRS", [">" => [1, 0], "v" => [0, 1], "<" => [-1, 0], "^" => [0, -1]]);
 
 $data = file_get_contents(__DIR__ . "/input.txt");
 
 function main(string $data): void
 {
     $codes = explode("\n", trim($data));
+
+    println(get_total_complexity($codes, 2));
+    println(get_total_complexity($codes, 25));
+}
+
+
+function get_total_complexity(array $codes, int $depth): int
+{
+    $tot = 0;
+    $cache = [];
     $num_paths = get_paths(parse_grid(NUMPAD));
     $dir_paths = get_paths(parse_grid(DIRPAD));
 
-    println(get_total_complexity($num_paths, $dir_paths, $codes, 2));
-}
-
-function get_total_complexity(array $num_paths, array $dir_paths, array $codes, int $robots): int
-{
-    $tot = 0;
-
     foreach ($codes as $code) {
-        $min_moves = get_min_moves($num_paths, $dir_paths, $code, $robots);
-        $tot += $min_moves * trim($code, "A");
+        $moves = get_initial_moves($num_paths, $code);
+        $min = min(array_map(fn ($m) => get_min_moves($m, $dir_paths, $depth, $cache), $moves));
+        $tot += $min * (int)trim($code, "A");
     }
 
     return $tot;
 }
 
-function get_min_moves(array $num_paths, array $dir_paths, string $code, int $robots): int
+function get_min_moves(string $moves, array $paths, int $depth, array &$cache): int
 {
-    $moves = get_moves($num_paths, $code);
+    $count = 0;
 
-    for ($i = 0; $i < $robots; $i++) {
-        $moves = get_all_moves($dir_paths, $moves);
+    for ($i = 0; $i < strlen($moves) - 1; $i++) {
+        $move = $moves[$i] . $moves[$i + 1];
+        $possible_next_moves = $paths[$move];
+
+        if ($depth === 1) {
+            $count += strlen($possible_next_moves[0]);
+            continue;
+        }
+
+        if (isset($cache[$depth . $move])) {
+            $count += $cache[$depth . $move];
+            continue;
+        }
+
+        $min_count = PHP_INT_MAX;
+
+        foreach ($possible_next_moves as $next_moves) {
+            $min_count = min($min_count, get_min_moves("A" . $next_moves, $paths, $depth - 1, $cache));
+        }
+
+        $cache[$depth . $move] = $min_count;
+        $count += $min_count;
     }
 
-    return strlen($moves[0]);
+    return $count;
 }
 
-function get_all_moves(array $paths, array $codes): array
+function get_initial_moves(array $paths, string $code, int $min = PHP_INT_MAX): array
 {
     $all = [];
-    $min = PHP_INT_MAX;
-
-    foreach ($codes as $code) {
-        $moves = get_moves($paths, $code, $min);
-        array_push($all, ...$moves);
-        if (!empty($moves)) $min = min(array_map("strlen", $moves));
-    }
-
-    return array_values(array_filter($all, fn ($m) => strlen($m) === $min));
-}
-
-function get_moves(array $paths, string $code, int $min = PHP_INT_MAX): array
-{
-    $all = [];
-    $stack = [["A", $code, ""]];
+    $stack = [["A", $code, "A"]];
 
     while (!empty($stack)) {
         list($prev, $code, $moves) = array_shift($stack);
@@ -79,17 +84,11 @@ function get_moves(array $paths, string $code, int $min = PHP_INT_MAX): array
         $remainder = substr($code, 1);
 
         foreach ($paths[$prev . $curr] as $path) {
-            $stack[] = [$curr, $remainder, $moves . $path . "A"];
+            $stack[] = [$curr, $remainder, $moves . $path];
         }
     }
 
     return $all;
-}
-
-function get_shortest(array $moves): array
-{
-    $min = min(array_map("strlen", $moves));
-    return array_filter($moves, fn ($m) => strlen($m) === $min);
 }
 
 function get_paths(array $pad): array
@@ -99,8 +98,7 @@ function get_paths(array $pad): array
 
     foreach ($keys as $a) {
         foreach ($keys as $b) {
-            $key = $a . $b;
-            $paths[$key] = get_paths_for($pad, $a, $b);
+            $paths[$a . $b] = get_paths_for($pad, $a, $b);
         }
     }
 
@@ -110,30 +108,21 @@ function get_paths(array $pad): array
 function get_paths_for(array $pad, string $from, string $goal): array
 {
     $paths = [];
-    $min = PHP_INT_MAX;
-    $start = find_value($pad, $from);
-    $stack = [[$start, $from, ""]];
+    $stack = [[find_value($pad, $from), $from, ""]];
 
     while(!empty($stack)) {
         list($curr, $path, $moves) = array_shift($stack);
 
-        if (strlen($moves) > $min) continue;
-
-        $at = get_value($pad, $curr);
-
-        if ($at === $goal) {
-            $paths[] = $moves;
-            $min = strlen($moves);
+        if (!empty($paths) && strlen($moves) > strlen($paths[0])) break;
+        if (get_value($pad, $curr) === $goal) {
+            $paths[] = $moves . "A";
             continue;
         }
 
-        foreach (["<", ">", "^", "v"] as $move) {
-            $dir = DIRS[$move];
+        foreach (DIRS as $move => $dir) {
             $next = add_coord($curr, $dir);
             $to = get_value($pad, $next, ".");
-
             if ($to === "." || strpos($path, $to) !== false) continue;
-
             $stack[] = [$next, $path . $to, $moves . $move];
         }
     }
